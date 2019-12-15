@@ -1,18 +1,32 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Axios from 'axios';
 
 class App extends Component {
+  state = {
+    movieData: [],
+    searchInput: " ",
+  }
+
+  searchHandler = (event) => {
+  const value = event.target.value;
+  this.setState(state => ({...state, searchInput: value}));
+  }
+
+  handleChange= () => {
+      const url_key = 'dc9c1f8a8037bda70dfd05ce25d71cac'
+      const SERVER_URL = `https://api.themoviedb.org/3`;
+      Axios.get(`${SERVER_URL}/search/movie?api_key=${ url_key }&query=${ this.state.searchInput }`).then(res => {
+        const movieData = res.data;
+        console.log(movieData)
+        this.setState({ movieData });
+      });
+  }
+  
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <input type="text" onChange={this.searchHandler}/>
+        <button onClick={this.handleChange}>Search</button>
       </div>
     );
   }
