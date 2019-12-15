@@ -26,13 +26,17 @@ class App extends Component {
 
     const movieTitle = this.state.movieData
 
-    const getTitle = movieTitle.map((name, id) => <li key={id}> {name.original_title} </li> )
+    const getTitle = movieTitle.map((name) => 
+      <div key={name.id}>
+        <p>{name.title}</p>
+        <img src={"https://image.tmdb.org/t/p/original"+name.poster_path}></img>
+      </div> )
 
     return (
       <div className="App">
         <input type="text" onChange={this.searchHandler}/>
         <button onClick={this.handleChange}>Search</button>
-        <ul>{getTitle}</ul>
+        <div>{getTitle}</div>
       </div>
     );
   }
