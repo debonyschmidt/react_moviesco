@@ -27,10 +27,15 @@ class App extends Component {
     const movieTitle = this.state.movieData
 
     const getTitle = movieTitle.map((name) => 
-      <div key={name.id}>
-        <p>{name.title}</p>
-        <img src={"https://image.tmdb.org/t/p/original"+name.poster_path}></img>
-      </div> )
+  
+      <div className="card" key={name.id} style={{width: "18rem"}}>
+        <img src={"https://image.tmdb.org/t/p/original"+name.poster_path} className="card-img-top" alt="..."></img>
+          <h5 className="card-title">{name.title}</h5>
+          <p className="card-text">{name.overview}</p>
+          <a href="#" className="btn btn-primary">More...</a>
+      </div>
+      
+      )
 
     return (
       <div className="App">
