@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import GlobalStyle from './Components/styles/global';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 class App extends Component {
   state = {
@@ -27,18 +30,24 @@ class App extends Component {
     const movieTitle = this.state.movieData
 
     const getTitle = movieTitle.map((name) => 
-  
-      <div className="card" key={name.id} style={{width: "18rem"}}>
-        <img src={"https://image.tmdb.org/t/p/original"+name.poster_path} className="card-img-top" alt="..."></img>
-          <h5 className="card-title">{name.title}</h5>
-          <p className="card-text">{name.overview}</p>
-          <a href="#" className="btn btn-primary">More...</a>
-      </div>
+
+      <Card style={{ width: '18rem' }}>
+      <Card.Img variant="top" src={"https://image.tmdb.org/t/p/original"+name.poster_path}/>
+      <Card.Body>
+        <Card.Title>{name.title}</Card.Title>
+        <Card.Text>
+          {name.overview}
+        </Card.Text>
+        <Button variant="primary">More...</Button>
+      </Card.Body>
+      </Card>
       
-      )
+    )
 
     return (
+
       <div className="App">
+        <GlobalStyle />
         <input type="text" onChange={this.searchHandler}/>
         <button onClick={this.handleChange}>Search</button>
         <div>{getTitle}</div>
