@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import './App.css';
 import Axios from 'axios';
-import GlobalStyle from './Components/styles/global';
+import GlobalStyle from './Components/styles/Global';
+import Header from './Components/Header';
+import ShowResults from './Components/ShowResults';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
@@ -8,11 +11,13 @@ class App extends Component {
   state = {
     movieData: [],
     searchInput: " ",
+    isSearchSubmitted: false,
   }
 
   searchHandler = (event) => {
   const value = event.target.value;
   this.setState(state => ({...state, searchInput: value}));
+  
   }
 
   handleChange= () => {
@@ -20,37 +25,46 @@ class App extends Component {
       const SERVER_URL = `https://api.themoviedb.org/3`;
       Axios.get(`${SERVER_URL}/search/movie?api_key=${ url_key }&query=${ this.state.searchInput }`).then(res => {
         const movieData = res.data.results;
-        console.log(movieData)
         this.setState({ movieData });
+      });
+
+      this.setState ({
+        isSearchSubmitted: true
       });
   }
   
   render() {
-
-    const movieTitle = this.state.movieData
-
+    const isSearchSubmitted = this.state.isSearchSubmitted;
+    const searchInput = this.state.searchInput;
+    const movieTitle = this.state.movieData;
     const getTitle = movieTitle.map((name) => 
 
-      <Card style={{ width: '18rem' }}>
+      <Card style={{ width: '18rem', padding: '10px', margin: '10px'}}>
       <Card.Img variant="top" src={"https://image.tmdb.org/t/p/original"+name.poster_path}/>
       <Card.Body>
         <Card.Title>{name.title}</Card.Title>
-        <Card.Text>
+        {/* <Card.Text>
           {name.overview}
-        </Card.Text>
+        </Card.Text> */}
         <Button variant="primary">More...</Button>
       </Card.Body>
       </Card>
-      
-    )
+      )
 
     return (
 
       <div className="App">
         <GlobalStyle />
-        <input type="text" onChange={this.searchHandler}/>
-        <button onClick={this.handleChange}>Search</button>
-        <div>{getTitle}</div>
+        <Header 
+          search={this.searchHandler}
+          submit={this.handleChange}   
+        />;
+
+        {isSearchSubmitted ? (
+          <ShowResults searchInput={searchInput} />
+        ) : ('test') };
+
+        <div className='movies_wrapper'>{getTitle}</div>
       </div>
     );
   }

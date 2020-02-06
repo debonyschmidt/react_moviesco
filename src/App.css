@@ -1,0 +1,61 @@
+.App {
+  font-family: 'Roboto', sans-serif;
+}
+
+.header_wrapper {
+  padding: 10px;
+  border-bottom: 1px solid white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+.header_title {
+  width: 100%;
+  color: white;
+  text-align: left;
+  width: 100%;
+}
+
+.search_wrapper {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.search_input {
+  height: 60%;
+  width: 50%;
+  text-align: center;
+  color: #332e14;
+  font-size: 14px;
+  padding: 5px 5px;
+  border-radius: 3px;
+}
+
+.search_submit {
+  font-size: 14px;
+  width: 10%;
+  height: 60%;
+  margin-left: 10px;
+  color: #332e14;
+  border-radius: 3px;
+  border: 1px solid #f6d515;
+  background-color: #f6d515;   
+}
+
+.search_results {
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+.movies_wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
